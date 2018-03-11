@@ -1,0 +1,43 @@
+{
+    "name": "i18n-replacer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "eslint": "eslint src; exit 0",
+        "build": "gulp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mekhonoshyn/i18n-replacer.git"
+    },
+    "author": "mekhonoshyn",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mekhonoshyn/i18n-replacer/issues"
+    },
+    "homepage": "https://github.com/mekhonoshyn/i18n-replacer",
+    "dependencies": {
+        "glob": "^7.1.2",
+        "loader-utils": "^1.1.0",
+        "plugin-error": "^1.0.1",
+        "through2": "^2.0.3"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.2.2",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.6.1",
+        "babel-register": "^6.26.0",
+        "css-loader": "^0.28.10",
+        "del": "^3.0.0",
+        "dotenv": "^5.0.1",
+        "eslint": "^4.18.2",
+        "gulp": "^3.9.1",
+        "node-sass": "^4.7.2",
+        "require-dir": "^1.0.0",
+        "run-sequence": "^2.2.1",
+        "sass-loader": "^6.0.7",
+        "webpack": "^3.11.0"
+    }
+}

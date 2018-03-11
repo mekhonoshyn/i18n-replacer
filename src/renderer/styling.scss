@@ -1,0 +1,133 @@
+$size: 48px;
+$bodyColor: #ffffff;
+$errorColor: #fff0f0;
+$warnColor: #fffbe6;
+$infoColor: #f0f0ff;
+$logColor: #f0fff0;
+
+$colorsMap: (
+  (error,  $errorColor),
+  (warn,  $warnColor),
+  (info,  $infoColor),
+  (log,  $logColor)
+);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: $bodyColor;
+}
+
+.layout-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@each $colorAlias, $colorValue in $colorsMap {
+  .#{$colorAlias} {
+    background-color: $colorValue;
+  }
+}
+
+.section {
+  .section__header {
+    cursor: pointer;
+    height: $size;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 1px 1px black;
+
+    @each $colorAlias, $colorValue in $colorsMap {
+      &.#{$colorAlias}:hover {
+        background-color: mix(black, $colorValue, 10%);
+      }
+    }
+
+    .section__header-title-block {
+      flex: 1;
+
+      .section__header-title {
+        height: $size / 2;
+        line-height: $size / 2;
+        font-weight: bold;
+        padding-left: $size / 12;
+      }
+
+      .section__header-description {
+        height: $size / 2;
+        line-height: $size / 2;
+        font-style: italic;
+        padding-left: $size / 4;
+      }
+    }
+
+    .section__header-count-block {
+      width: $size;
+      align-self: center;
+
+      .section__header-count {
+        align-self: center;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .section__frame {
+    min-height: $size;
+
+    .section__indent {
+      width: $size;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($bodyColor, 10%);
+      }
+    }
+
+    .section__body {
+      flex: 1;
+
+      .section__body-line {
+        font-family: monospace;
+        margin: $size / 4 $size 0 0;
+
+        &:last-child {
+          margin-bottom: $size / 4;
+        }
+
+        > * {
+          white-space: pre-wrap;
+          padding: $size / 12;
+
+          &:nth-child(odd) {
+            background-color: darken($errorColor, 15%);
+            padding-bottom: $size / 4;
+          }
+
+          &:nth-child(even) {
+            background-color: darken($logColor, 15%);
+            padding-top: $size / 4;
+          }
+        }
+      }
+    }
+  }
+
+  & & .section__header {
+    top: $size;
+    z-index: 1;
+  }
+
+  &:not(.section--expanded) > .section__frame {
+    display: none;
+  }
+}
