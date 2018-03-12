@@ -11,7 +11,8 @@ export default {
     },
     output: {
         path: path.join(__dirname, process.env.DIST_PATH),
-        filename: '[name].js'
+        filename: '[name].js',
+        libraryTarget: 'commonjs2'
     },
     externals: [
         nodeExternals()
@@ -35,5 +36,8 @@ export default {
         }]
     },
     target: 'node',
+    node: {
+        __dirname: false
+    },
     bail: true
 };
