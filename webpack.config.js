@@ -1,15 +1,20 @@
 /* eslint-disable */
 
 import path from 'path';
+import nodeExternals from 'webpack-node-externals';
 
 export default {
-    entry: path.join(__dirname, process.env.SRC_PATH, 'index.js'),
+    entry: {
+        index: path.join(__dirname, process.env.SRC_PATH, 'index.js'),
+        'gulp-plugin': path.join(__dirname, process.env.SRC_PATH, 'gulp-plugin.js'),
+        'webpack-loader': path.join(__dirname, process.env.SRC_PATH, 'webpack-loader.js')
+    },
     output: {
         path: path.join(__dirname, process.env.DIST_PATH),
-        filename: 'index.js'
+        filename: '[name].js'
     },
     externals: [
-        /^(?!\.|\/).+/i
+        nodeExternals()
     ],
     module: {
         rules: [{
