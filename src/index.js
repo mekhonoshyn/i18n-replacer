@@ -29,8 +29,8 @@ function initialize(options) {
     reporterInitialize();
 }
 
-function finalize(options) {
-    configFinalize(options);
+function finalize() {
+    configFinalize();
     helperFinalize();
     reporterFinalize();
 }
