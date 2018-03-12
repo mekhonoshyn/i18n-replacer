@@ -12,6 +12,7 @@ export default {
     output: {
         path: path.join(__dirname, process.env.DIST_PATH),
         filename: '[name].js',
+        libraryExport: 'default',
         libraryTarget: 'commonjs2'
     },
     externals: [

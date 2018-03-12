@@ -1138,4 +1138,4 @@ module.exports = require("through2");
 module.exports = require("plugin-error");
 
 /***/ })
-/******/ ]);
+/******/ ])["default"];

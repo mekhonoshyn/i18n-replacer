@@ -1120,4 +1120,4 @@ function i18nReplacerLoader(source) {
 module.exports = require("loader-utils");
 
 /***/ })
-/******/ ]);
+/******/ ])["default"];

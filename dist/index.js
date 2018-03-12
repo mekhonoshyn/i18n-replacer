@@ -860,7 +860,6 @@ function toComment(sourceMap) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.finalize = exports.initialize = exports.webpackLoaderPath = exports.gulpPluginPath = undefined;
 
 var _path = __webpack_require__(0);
 
@@ -877,10 +876,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var gulpPluginPath = _path2.default.join(__dirname, 'gulp-plugin');
 var webpackLoaderPath = _path2.default.join(__dirname, 'webpack-loader');
 
-exports.gulpPluginPath = gulpPluginPath;
-exports.webpackLoaderPath = webpackLoaderPath;
-exports.initialize = initialize;
-exports.finalize = finalize;
+exports.default = {
+    gulpPluginPath: gulpPluginPath,
+    webpackLoaderPath: webpackLoaderPath,
+
+    initialize: initialize,
+    finalize: finalize
+};
 
 
 function initialize(options) {
@@ -896,4 +898,4 @@ function finalize() {
 }
 
 /***/ })
-/******/ ]);
+/******/ ])["default"];
