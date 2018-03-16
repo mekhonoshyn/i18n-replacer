@@ -1,24 +1,16 @@
 /* eslint-disable */
 
 import path from 'path';
-// import nodeExternals from 'webpack-node-externals';
 
 export default {
     entry: {
         renderer: path.join(__dirname, process.env.SRC_PATH, 'renderer')
     },
     output: {
-        path: path.join(__dirname, process.env.DIST_PATH, 'renderer'),
-        filename: '[name].js',
-        // libraryExport: 'default',
+        path: path.join(__dirname, process.env.DIST_PATH),
+        filename: 'renderer/index.js',
         libraryTarget: 'commonjs2'
     },
-    externals: [
-        // nodeExternals(),
-        // './helper',
-        // './config',
-        // '../config'
-    ],
     module: {
         rules: [{
             test: /src\/.*\.js$/,
@@ -38,8 +30,5 @@ export default {
         }]
     },
     target: 'node',
-    // node: {
-    //     __dirname: false
-    // },
     bail: true
 };
