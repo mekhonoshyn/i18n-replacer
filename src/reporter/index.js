@@ -98,14 +98,14 @@ function renderReport() {
         count: stats.notFound.static.size,
         title: 'Statics',
         description: 'static keys',
-        content: [...stats.notFound.static].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.notFound.static].map(({key}) => renderReportLine({content: key})).join('')
     });
     const notFoundDynamicsSectionContent = stats.notFound.dynamic.size && renderReportSection({
         type: 'error',
         count: stats.notFound.dynamic.size,
         title: 'Dynamics',
         description: 'dynamic keys',
-        content: [...stats.notFound.dynamic].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.notFound.dynamic].map(({key}) => renderReportLine({content: key})).join('')
     });
     const notFoundSectionContent = (notFoundStaticsSectionContent || notFoundDynamicsSectionContent) && renderReportSection({
         type: 'error',
@@ -119,21 +119,21 @@ function renderReport() {
         count: stats.missedInDefault.static.size,
         title: `Missed in default build ("${configProperty('defaultBuild')}")`,
         description: `localization keys which are present in custom ("${configProperty('customBuild')}") build, but are absent in default one ("${configProperty('defaultBuild')}")`,
-        content: [...stats.missedInDefault.static].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.missedInDefault.static].map(({key}) => renderReportLine({content: key})).join('')
     });
     const notUsedStaticsSectionContent = stats.notUsed.static.size && renderReportSection({
         type: 'warn',
         count: stats.notUsed.static.size,
         title: 'Statics',
         description: 'static keys',
-        content: [...stats.notUsed.static].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.notUsed.static].map(({key}) => renderReportLine({content: key})).join('')
     });
     const notUsedDynamicsSectionContent = stats.notUsed.dynamic.size && renderReportSection({
         type: 'warn',
         count: stats.notUsed.dynamic.size,
         title: 'Dynamics',
         description: 'dynamic keys',
-        content: [...stats.notUsed.dynamic].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.notUsed.dynamic].map(({key}) => renderReportLine({content: key})).join('')
     });
     const notUsedSectionContent = (notUsedStaticsSectionContent || notUsedDynamicsSectionContent) && renderReportSection({
         type: 'warn',
@@ -147,7 +147,7 @@ function renderReport() {
         count: stats.missedInCustom.static.size,
         title: `Missed in custom build ("${configProperty('customBuild')}")`,
         description: `localization keys which are present in default ("${configProperty('defaultBuild')}") build, but are absent in custom one ("${configProperty('customBuild')}")`,
-        content: [...stats.missedInCustom.static].map((key) => renderReportLine({content: key})).join('')
+        content: [...stats.missedInCustom.static].map(({key}) => renderReportLine({content: key})).join('')
     });
     const fallbackSectionContent = stats.fallback.static.size && renderReportSection({
         type: 'info',

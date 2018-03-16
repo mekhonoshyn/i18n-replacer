@@ -129,7 +129,8 @@ function renderReport() {
         count: stats.notFound.static.size,
         title: 'Statics',
         description: 'static keys',
-        content: [].concat(_toConsumableArray(stats.notFound.static)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.notFound.static)).map(function (_ref9) {
+            var key = _ref9.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -138,7 +139,8 @@ function renderReport() {
         count: stats.notFound.dynamic.size,
         title: 'Dynamics',
         description: 'dynamic keys',
-        content: [].concat(_toConsumableArray(stats.notFound.dynamic)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.notFound.dynamic)).map(function (_ref10) {
+            var key = _ref10.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -154,7 +156,8 @@ function renderReport() {
         count: stats.missedInDefault.static.size,
         title: 'Missed in default build ("' + (0, _config.property)('defaultBuild') + '")',
         description: 'localization keys which are present in custom ("' + (0, _config.property)('customBuild') + '") build, but are absent in default one ("' + (0, _config.property)('defaultBuild') + '")',
-        content: [].concat(_toConsumableArray(stats.missedInDefault.static)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.missedInDefault.static)).map(function (_ref11) {
+            var key = _ref11.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -163,7 +166,8 @@ function renderReport() {
         count: stats.notUsed.static.size,
         title: 'Statics',
         description: 'static keys',
-        content: [].concat(_toConsumableArray(stats.notUsed.static)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.notUsed.static)).map(function (_ref12) {
+            var key = _ref12.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -172,7 +176,8 @@ function renderReport() {
         count: stats.notUsed.dynamic.size,
         title: 'Dynamics',
         description: 'dynamic keys',
-        content: [].concat(_toConsumableArray(stats.notUsed.dynamic)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.notUsed.dynamic)).map(function (_ref13) {
+            var key = _ref13.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -188,7 +193,8 @@ function renderReport() {
         count: stats.missedInCustom.static.size,
         title: 'Missed in custom build ("' + (0, _config.property)('customBuild') + '")',
         description: 'localization keys which are present in default ("' + (0, _config.property)('defaultBuild') + '") build, but are absent in custom one ("' + (0, _config.property)('customBuild') + '")',
-        content: [].concat(_toConsumableArray(stats.missedInCustom.static)).map(function (key) {
+        content: [].concat(_toConsumableArray(stats.missedInCustom.static)).map(function (_ref14) {
+            var key = _ref14.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -197,8 +203,8 @@ function renderReport() {
         count: stats.fallback.static.size,
         title: 'Fallback',
         description: 'localization keys which were not found for current ("' + (0, _config.property)('customBuild') + '") build, so fallback values were applied',
-        content: [].concat(_toConsumableArray(stats.fallback.static)).map(function (_ref9) {
-            var key = _ref9.key;
+        content: [].concat(_toConsumableArray(stats.fallback.static)).map(function (_ref15) {
+            var key = _ref15.key;
             return (0, _renderer.renderReportLine)({ content: key });
         }).join('')
     });
@@ -211,18 +217,18 @@ function renderReport() {
         }, 0),
         title: 'Replacements',
         description: 'applied replacements',
-        content: Object.entries(stats.replacements).map(function (_ref10) {
-            var _ref11 = _slicedToArray(_ref10, 2),
-                key = _ref11[0],
-                values = _ref11[1];
+        content: Object.entries(stats.replacements).map(function (_ref16) {
+            var _ref17 = _slicedToArray(_ref16, 2),
+                key = _ref17[0],
+                values = _ref17[1];
 
             return values.length && (0, _renderer.renderReportSection)({
                 type: 'log',
                 count: values.length,
                 title: key,
-                content: values.map(function (_ref12) {
-                    var match = _ref12.match,
-                        result = _ref12.result;
+                content: values.map(function (_ref18) {
+                    var match = _ref18.match,
+                        result = _ref18.result;
 
                     return (0, _renderer.renderReportLine)({
                         content: '' + (0, _renderer.renderReportCell)(match) + (0, _renderer.renderReportCell)(result)
