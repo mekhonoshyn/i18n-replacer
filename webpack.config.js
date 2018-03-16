@@ -1,22 +1,23 @@
 /* eslint-disable */
 
 import path from 'path';
-import nodeExternals from 'webpack-node-externals';
+// import nodeExternals from 'webpack-node-externals';
 
 export default {
     entry: {
-        index: path.join(__dirname, process.env.SRC_PATH, 'index.js'),
-        'gulp-plugin': path.join(__dirname, process.env.SRC_PATH, 'gulp-plugin.js'),
-        'webpack-loader': path.join(__dirname, process.env.SRC_PATH, 'webpack-loader.js')
+        renderer: path.join(__dirname, process.env.SRC_PATH, 'renderer')
     },
     output: {
-        path: path.join(__dirname, process.env.DIST_PATH),
+        path: path.join(__dirname, process.env.DIST_PATH, 'renderer'),
         filename: '[name].js',
-        libraryExport: 'default',
+        // libraryExport: 'default',
         libraryTarget: 'commonjs2'
     },
     externals: [
-        nodeExternals()
+        // nodeExternals(),
+        // './helper',
+        // './config',
+        // '../config'
     ],
     module: {
         rules: [{
@@ -37,8 +38,8 @@ export default {
         }]
     },
     target: 'node',
-    node: {
-        __dirname: false
-    },
+    // node: {
+    //     __dirname: false
+    // },
     bail: true
 };
