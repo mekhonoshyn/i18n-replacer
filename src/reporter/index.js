@@ -111,7 +111,7 @@ function renderReport() {
         type: 'error',
         count: stats.notFound.static.size + stats.notFound.dynamic.size,
         title: 'Not Found',
-        description: 'localization keys which were not found',
+        description: 'localization keys which were not found (may repeat)',
         content: [notFoundStaticsSectionContent, notFoundDynamicsSectionContent].filter(Boolean).join('')
     });
     const missedInDefaultSectionContent = stats.missedInDefault.static.size && renderReportSection({
@@ -139,7 +139,7 @@ function renderReport() {
         type: 'warn',
         count: stats.notUsed.static.size + stats.notUsed.dynamic.size,
         title: 'Not Used',
-        description: 'localization keys which were not used',
+        description: 'localization keys which were not used (may repeat)',
         content: [notUsedStaticsSectionContent, notUsedDynamicsSectionContent].filter(Boolean).join('')
     });
     const missedInCustomSectionContent = stats.missedInCustom.static.size && renderReportSection({
@@ -160,7 +160,7 @@ function renderReport() {
         type: 'log',
         count: Object.values(stats.replacements).reduce((sum, value) => sum + value.length, 0),
         title: 'Replacements',
-        description: 'applied replacements',
+        description: 'applied replacements (may repeat)',
         content: Object.entries(stats.replacements).map(([key, values]) => {
             return values.length && renderReportSection({
                 type: 'log',
