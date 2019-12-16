@@ -233,9 +233,99 @@ exports.divTemplate = divTemplate;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "* {\n  box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  background-color: #ffffff; }\n\n.layout-row {\n  display: flex;\n  flex-direction: row; }\n\n.layout-column {\n  display: flex;\n  flex-direction: column; }\n\n.error {\n  background-color: #fff0f0; }\n\n.warn {\n  background-color: #fffbe6; }\n\n.info {\n  background-color: #f0f0ff; }\n\n.log {\n  background-color: #f0fff0; }\n\n.section .section__header {\n  cursor: pointer;\n  height: 48px;\n  position: sticky;\n  top: 0;\n  z-index: 2;\n  box-shadow: 0 1px 1px black; }\n  .section .section__header.error:hover {\n    background-color: #e6d8d8; }\n  .section .section__header.warn:hover {\n    background-color: #e6e2cf; }\n  .section .section__header.info:hover {\n    background-color: #d8d8e6; }\n  .section .section__header.log:hover {\n    background-color: #d8e6d8; }\n  .section .section__header .section__header-title-block {\n    flex: 1; }\n    .section .section__header .section__header-title-block .section__header-title {\n      height: 24px;\n      line-height: 24px;\n      font-weight: bold;\n      padding-left: 4px; }\n    .section .section__header .section__header-title-block .section__header-description {\n      height: 24px;\n      line-height: 24px;\n      font-style: italic;\n      padding-left: 12px; }\n  .section .section__header .section__header-count-block {\n    width: 48px;\n    align-self: center; }\n    .section .section__header .section__header-count-block .section__header-count {\n      align-self: center;\n      font-weight: bold; }\n\n.section .section__frame {\n  min-height: 48px; }\n  .section .section__frame .section__indent {\n    width: 48px;\n    cursor: pointer; }\n    .section .section__frame .section__indent:hover {\n      background-color: #e6e6e6; }\n  .section .section__frame .section__body {\n    flex: 1; }\n    .section .section__frame .section__body .section__body-line {\n      font-family: monospace;\n      margin: 12px 48px 0 0; }\n      .section .section__frame .section__body .section__body-line:last-child {\n        margin-bottom: 12px; }\n      .section .section__frame .section__body .section__body-line > * {\n        white-space: pre-wrap;\n        padding: 4px; }\n        .section .section__frame .section__body .section__body-line > *:nth-child(odd) {\n          background-color: #ffa4a4;\n          padding-bottom: 12px; }\n        .section .section__frame .section__body .section__body-line > *:nth-child(even) {\n          background-color: #a4ffa4;\n          padding-top: 12px; }\n\n.section .section .section__header {\n  top: 48px;\n  z-index: 1; }\n\n.section:not(.section--expanded) > .section__frame {\n  display: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: Missing binding /media/sergii_mekhonoshyn/DATA/PETS/i18n-replacer/node_modules/node-sass/vendor/linux-x64-48/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 6.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass --force` to build the binding for your current environment.\n    at module.exports (/media/sergii_mekhonoshyn/DATA/PETS/i18n-replacer/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/media/sergii_mekhonoshyn/DATA/PETS/i18n-replacer/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (module.js:541:32)\n    at Module._extensions..js (module.js:550:10)\n    at Object.require.extensions.(anonymous function) [as .js] (/media/sergii_mekhonoshyn/DATA/PETS/i18n-replacer/node_modules/babel-register/lib/node.js:152:7)\n    at Module.load (module.js:456:32)\n    at tryModuleLoad (module.js:415:12)\n    at Function.Module._load (module.js:407:3)\n    at Module.require (module.js:466:17)\n    at require (internal/module.js:20:19)");
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
 
 /***/ })
 /******/ ]);
