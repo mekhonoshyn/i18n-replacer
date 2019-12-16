@@ -1,7 +1,6 @@
 import through2 from 'through2';
 import PluginError from 'plugin-error';
 import {transformSource} from './helper';
-import PRESETS from './presets';
 
 export default i18nReplacerPlugin;
 
@@ -14,7 +13,7 @@ function i18nReplacerPlugin({preset}) {
         }
 
         try {
-            const content = transformSource(fileObject.contents.toString(), PRESETS[preset]);
+            const content = transformSource(fileObject.contents.toString(), preset);
 
             fileObject.contents = Buffer.from(content);
 

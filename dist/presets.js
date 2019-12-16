@@ -6,15 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _reporter = require('./reporter');
-
 var _helper = require('./helper');
-
-var _config = require('./config');
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var presets = {
+exports.default = {
     /* This preset is used for "/\.json$/" rule only*/
     json: [
 
@@ -28,7 +24,7 @@ var presets = {
         var type = 'static, server-side localization /* ${{i18n-dict.I18N_KEY}}$ */';
         var pattern = /\${{([\w.-]+)}}\$/g;
         var handler = function handler(match, key) {
-            return genericHandler(type, match, (0, _helper.getStaticValue)(key));
+            return (0, _helper.genericHandler)(type, match, (0, _helper.getStaticValue)(key));
         };
 
         return [pattern, handler];
@@ -47,7 +43,7 @@ var presets = {
         var type = 'static, server-side localization /* ${{i18n-dict.I18N_KEY}}$ */';
         var pattern = /\${{([\w.-]+)}}\$/g;
         var handler = function handler(match, key) {
-            return genericHandler(type, match, (0, _helper.getStaticValue)(key));
+            return (0, _helper.genericHandler)(type, match, (0, _helper.getStaticValue)(key));
         };
 
         return [pattern, handler];
@@ -65,7 +61,7 @@ var presets = {
         var type = 'dynamic, interpolation, filter translation /* {{\'some text\' | translate}} */';
         var pattern = /\{\{\s*(?:::)*\s*(['"])([\w\s/()-]+)\1\s*\|\s*translate\s*}}/g;
         var handler = function handler(match, quote, key) {
-            return genericHandler(type, match, (0, _helper.getDynamicValue)(key));
+            return (0, _helper.genericHandler)(type, match, (0, _helper.getDynamicValue)(key));
         };
 
         return [pattern, handler];
@@ -86,7 +82,7 @@ var presets = {
             var oneTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
             var quote = arguments[2];
             var key = arguments[3];
-            return genericHandler(type, match, '' + oneTime + quote + (0, _helper.getDynamicValue)(key) + quote);
+            return (0, _helper.genericHandler)(type, match, '' + oneTime + quote + (0, _helper.getDynamicValue)(key) + quote);
         };
 
         return [pattern, handler];
@@ -106,7 +102,7 @@ var presets = {
         var handler = function handler(match) {
             var oneTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
             var key = arguments[2];
-            return genericHandler(type, match, 'ng-bind="' + oneTime + '\'' + (0, _helper.getDynamicValue)(key) + '\'"');
+            return (0, _helper.genericHandler)(type, match, 'ng-bind="' + oneTime + '\'' + (0, _helper.getDynamicValue)(key) + '\'"');
         };
 
         return [pattern, handler];
@@ -127,7 +123,7 @@ var presets = {
         var type = 'dynamic, asynchronous, service translation /* $translate("some text").then(handler, handler); */';
         var pattern = /\$translate\((['"])([\w\s'-]+)\1\)\s*\.then\(([\w.]+),\s*\3\);/g;
         var handler = function handler(match, quote, key, callback) {
-            return genericHandler(type, match, callback + '(\'' + (0, _helper.getDynamicValue)(key) + '\');');
+            return (0, _helper.genericHandler)(type, match, callback + '(\'' + (0, _helper.getDynamicValue)(key) + '\');');
         };
 
         return [pattern, handler];
@@ -145,7 +141,7 @@ var presets = {
         var type = 'dynamic, synchronous, service translation /* $translate.instant("some text") */';
         var pattern = /\$translate\.instant\((['"])([\w\s-]+)\1\)/g;
         var handler = function handler(match, quote, key) {
-            return genericHandler(type, match, '\'' + (0, _helper.getDynamicValue)(key) + '\'');
+            return (0, _helper.genericHandler)(type, match, '\'' + (0, _helper.getDynamicValue)(key) + '\'');
         };
 
         return [pattern, handler];
@@ -165,7 +161,7 @@ var presets = {
         var handler = function handler(match, quote, key, iifeInput) {
             var expression = '`' + (0, _helper.getDynamicValue)(key).replace(/\{\{\s*([^{}]+)\s*}}/g, '${' + iifeInput + '.$1}') + '`';
 
-            return genericHandler(type, match, expression);
+            return (0, _helper.genericHandler)(type, match, expression);
         };
 
         return [pattern, handler];
@@ -210,7 +206,7 @@ var presets = {
             var mappingExpression = localsHasDiffs ? getIIFEExpression(key, localsMapping) : getStringExpression(key);
             var result = callback + '(' + mappingExpression + ');';
 
-            return genericHandler(type, match, result);
+            return (0, _helper.genericHandler)(type, match, result);
         };
 
         return [pattern, handler];
@@ -240,20 +236,9 @@ var presets = {
         var type = 'dynamic, asynchronous, anonymous callback, service translation /* $translate("some text").then(function (translation) {\n  $scope.translation = translation;\n}); */';
         var pattern = /\$translate\((['"])([\w\s'-]+)\1\)\s*\.then\(([\w\s(){}=;$.]+?)\);/g;
         var handler = function handler(match, quote, key, callback) {
-            return genericHandler(type, match, '(' + callback + ')(\'' + (0, _helper.getDynamicValue)(key) + '\');');
+            return (0, _helper.genericHandler)(type, match, '(' + callback + ')(\'' + (0, _helper.getDynamicValue)(key) + '\');');
         };
 
         return [pattern, handler];
     }()]
 };
-
-var customPresets = (0, _config.property)('customPresets')({ getStaticValue: _helper.getStaticValue, getDynamicValue: _helper.getDynamicValue, genericHandler: genericHandler });
-
-exports.default = Object.assign({}, presets, customPresets);
-
-
-function genericHandler(type, match, result) {
-    (0, _reporter.addReplacementIssue)({ type: type, match: match, result: result });
-
-    return result;
-}

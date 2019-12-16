@@ -10,13 +10,17 @@ import {
     addMissedInDefaultIssue,
     addMissedInCustomIssue
 } from './reporter';
+import predefinedPresets from './presets';
 import {property as configProperty} from './config';
+import {addReplacementIssue} from './reporter';
 
 const statics = {};
 const dynamics = {};
 
 export {
     transformSource,
+
+    genericHandler,
 
     getStaticValue,
     getDynamicValue,
@@ -25,7 +29,9 @@ export {
     finalize
 };
 
-function transformSource(source, rules) {
+function transformSource(source, preset) {
+    const rules = Object.assign({}, predefinedPresets, configProperty('customPresets'))[preset];
+
     return rules.reduce((accumulator, rule) => accumulator.replace(...rule), source);
 }
 
@@ -157,4 +163,10 @@ function setDynamicValue(key, value) {
 
 function readFileSync(filePath) {
     return fs.readFileSync(filePath, 'utf-8');
+}
+
+function genericHandler(type, match, result) {
+    addReplacementIssue({type, match, result});
+
+    return result;
 }

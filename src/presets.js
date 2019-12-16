@@ -1,11 +1,11 @@
-import {addReplacementIssue} from './reporter';
 import {
+    genericHandler,
+
     getStaticValue,
     getDynamicValue
 } from './helper';
-import {property as configProperty} from './config';
 
-const presets = {
+export default {
     /* This preset is used for "/\.json$/" rule only*/
     json: [
 
@@ -209,13 +209,3 @@ const presets = {
         })()
     ]
 };
-
-const customPresets = configProperty('customPresets')({getStaticValue, getDynamicValue, genericHandler});
-
-export default Object.assign({}, presets, customPresets);
-
-function genericHandler(type, match, result) {
-    addReplacementIssue({type, match, result});
-
-    return result;
-}

@@ -14,10 +14,6 @@ var _pluginError2 = _interopRequireDefault(_pluginError);
 
 var _helper = require('./helper');
 
-var _presets = require('./presets');
-
-var _presets2 = _interopRequireDefault(_presets);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = i18nReplacerPlugin;
@@ -34,7 +30,7 @@ function i18nReplacerPlugin(_ref) {
         }
 
         try {
-            var content = (0, _helper.transformSource)(fileObject.contents.toString(), _presets2.default[preset]);
+            var content = (0, _helper.transformSource)(fileObject.contents.toString(), preset);
 
             fileObject.contents = Buffer.from(content);
 

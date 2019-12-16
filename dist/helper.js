@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.finalize = exports.initialize = exports.getDynamicValue = exports.getStaticValue = exports.transformSource = undefined;
+exports.finalize = exports.initialize = exports.getDynamicValue = exports.getStaticValue = exports.genericHandler = exports.transformSource = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -21,6 +21,10 @@ var _glob2 = _interopRequireDefault(_glob);
 
 var _reporter = require('./reporter');
 
+var _presets = require('./presets');
+
+var _presets2 = _interopRequireDefault(_presets);
+
 var _config = require('./config');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -33,13 +37,16 @@ var statics = {};
 var dynamics = {};
 
 exports.transformSource = transformSource;
+exports.genericHandler = genericHandler;
 exports.getStaticValue = getStaticValue;
 exports.getDynamicValue = getDynamicValue;
 exports.initialize = initialize;
 exports.finalize = finalize;
 
 
-function transformSource(source, rules) {
+function transformSource(source, preset) {
+    var rules = Object.assign({}, _presets2.default, (0, _config.property)('customPresets'))[preset];
+
     return rules.reduce(function (accumulator, rule) {
         return accumulator.replace.apply(accumulator, _toConsumableArray(rule));
     }, source);
@@ -211,4 +218,10 @@ function setDynamicValue(key, value) {
 
 function readFileSync(filePath) {
     return _fs2.default.readFileSync(filePath, 'utf-8');
+}
+
+function genericHandler(type, match, result) {
+    (0, _reporter.addReplacementIssue)({ type: type, match: match, result: result });
+
+    return result;
 }

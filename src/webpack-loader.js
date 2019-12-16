@@ -1,6 +1,5 @@
 import loaderUtils from 'loader-utils';
 import {transformSource} from './helper';
-import PRESETS from './presets';
 
 const IS_RAW = true;
 
@@ -14,5 +13,5 @@ function i18nReplacerLoader(source) {
 
     const {preset} = loaderUtils.getOptions(this);
 
-    return transformSource(source.toString(), PRESETS[preset]);
+    return transformSource(source.toString(), preset);
 }

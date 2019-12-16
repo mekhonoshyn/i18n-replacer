@@ -11,10 +11,6 @@ var _loaderUtils2 = _interopRequireDefault(_loaderUtils);
 
 var _helper = require('./helper');
 
-var _presets = require('./presets');
-
-var _presets2 = _interopRequireDefault(_presets);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var IS_RAW = true;
@@ -29,5 +25,5 @@ function i18nReplacerLoader(source) {
     var _loaderUtils$getOptio = _loaderUtils2.default.getOptions(this),
         preset = _loaderUtils$getOptio.preset;
 
-    return (0, _helper.transformSource)(source.toString(), _presets2.default[preset]);
+    return (0, _helper.transformSource)(source.toString(), preset);
 }
