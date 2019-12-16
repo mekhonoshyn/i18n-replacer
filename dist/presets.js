@@ -10,9 +10,29 @@ var _reporter = require('./reporter');
 
 var _helper = require('./helper');
 
+var _config = require('./config');
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-exports.default = {
+var presets = {
+    /* This preset is used for "/\.json$/" rule only*/
+    json: [
+
+    /**
+     * "static" localizations, located in folder {PROJECT_ROOT}/i18n/{BUILD_NAME}/{LANGUAGE}/
+     *
+     * input example: ${{i18n-dict.I18N_KEY}}$
+     * output example: some localized text
+     */
+    function () {
+        var type = 'static, server-side localization /* ${{i18n-dict.I18N_KEY}}$ */';
+        var pattern = /\${{([\w.-]+)}}\$/g;
+        var handler = function handler(match, key) {
+            return genericHandler(type, match, (0, _helper.getStaticValue)(key));
+        };
+
+        return [pattern, handler];
+    }()],
 
     /* This preset is used for "/\.html$/" rule only*/
     html: [
@@ -134,6 +154,26 @@ exports.default = {
     /**
      * "dynamic" localizations, located in folder {PROJECT_ROOT}/src/translate/**
      *
+     * usage case: synchronous, parametric localization; via $translate service
+     *
+     * input example: $translate.instant('some text', inputObject)
+     * output example: `some localized ${inputObject.param}etric text`
+     */
+    function () {
+        var type = 'dynamic, synchronous, parametric, service translation /* $translate.instant(\'some text\', inputObject) */';
+        var pattern = /\$translate\.instant\((['"])([\w\s?.-]+)\1,\s*([\w\[\].]+)\s*\)/g;
+        var handler = function handler(match, quote, key, iifeInput) {
+            var expression = '`' + (0, _helper.getDynamicValue)(key).replace(/\{\{\s*([^{}]+)\s*}}/g, '${' + iifeInput + '.$1}') + '`';
+
+            return genericHandler(type, match, expression);
+        };
+
+        return [pattern, handler];
+    }(),
+
+    /**
+     * "dynamic" localizations, located in folder {PROJECT_ROOT}/src/translate/**
+     *
      * usage case: asynchronous, promisable, parametric localization; via $translate service; with defined callbacks for successful and failed results
      *
      * input example: $translate('some parametric text', {
@@ -206,6 +246,10 @@ exports.default = {
         return [pattern, handler];
     }()]
 };
+
+var customPresets = (0, _config.property)('customPresets')({ getStaticValue: _helper.getStaticValue, getDynamicValue: _helper.getDynamicValue, genericHandler: genericHandler });
+
+exports.default = Object.assign({}, presets, customPresets);
 
 
 function genericHandler(type, match, result) {

@@ -1,4 +1,6 @@
-const config = {};
+const config = {
+    customPresets: () => ({})
+};
 
 export {
     property,
